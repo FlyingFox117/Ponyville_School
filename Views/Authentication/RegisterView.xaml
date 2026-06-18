@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="PonyvilleSchool2._0.Views.Authentication.RegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PonyvilleSchool2._0.ViewModels.Authentication"
+             xmlns:helpers="clr-namespace:PonyvilleSchool2._0.Core"
+             mc:Ignorable="d">
+
+    <StackPanel Margin="30">
+        <TextBlock Text="Регистрация" FontSize="22" Margin="0 0 0 5"/>
+        <!-- Сообщение пользователю -->
+        <TextBlock
+            Text="{Binding StatusMessage}"
+            Foreground="{Binding StatusColor}"
+            TextWrapping="Wrap"
+            Margin="0 3 0 3"
+            FontWeight="SemiBold"/>
+        <TextBlock Text="Почта"/>
+        <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
+
+        <TextBlock Text="Имя"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
+
+        <TextBlock Text="Пароль"/>
+        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
+
+        <TextBlock Text="Повтор пароля"/>
+        <TextBox Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
+
+        <TextBlock Text="Код подтверждения" Visibility="{Binding IsTokenSended, Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <TextBox MaxLength="6" helpers:TextBoxHelper.OnlyNumbers="True" Text="{Binding Token, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsTokenSended, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+        <Button Content="Зарегистрироваться" Command="{Binding RegisterCommand}" Margin="0 15 0 15" IsEnabled="{Binding CanConfirm}"/>
+        <Button Content="Авторизация" Command="{Binding GoToLoginCommand}" IsEnabled="{Binding IsNotLoading}"/>
+    </StackPanel>
+</UserControl>

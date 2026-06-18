@@ -1,0 +1,164 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>PonyvilleSchool2._0</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <IsPublishable>False</IsPublishable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <IsPublishable>False</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Authentication\friendship.png" />
+    <None Remove="Assets\Authentication\friendship2.png" />
+    <None Remove="Assets\banned_words.txt" />
+    <None Remove="Assets\map.jpg" />
+    <None Remove="Assets\Messages\info.png" />
+    <None Remove="Assets\Messages\question.png" />
+    <None Remove="Assets\Messages\saved.png" />
+    <None Remove="Assets\Messages\warning.png" />
+    <None Remove="Assets\Sounds\continue.wav" />
+    <None Remove="Assets\Sounds\question.wav" />
+    <None Remove="Assets\Sounds\select1.wav" />
+    <None Remove="Assets\Sounds\select2.wav" />
+    <None Remove="Assets\Sounds\taskend.wav" />
+    <None Remove="Assets\Sounds\Voices\awesome!.wav" />
+    <None Remove="Assets\Sounds\Voices\back.wav" />
+    <None Remove="Assets\Sounds\Voices\editing.wav" />
+    <None Remove="Assets\Sounds\Voices\enter_password.wav" />
+    <None Remove="Assets\Sounds\Voices\exit.wav" />
+    <None Remove="Assets\Sounds\Voices\exittask.wav" />
+    <None Remove="Assets\Sounds\Voices\finish.wav" />
+    <None Remove="Assets\Sounds\Voices\finishedtask.wav" />
+    <None Remove="Assets\Sounds\Voices\good!.wav" />
+    <None Remove="Assets\Sounds\Voices\locked.wav" />
+    <None Remove="Assets\Sounds\Voices\nicework!.wav" />
+    <None Remove="Assets\Sounds\Voices\no.wav" />
+    <None Remove="Assets\Sounds\Voices\openprofile.wav" />
+    <None Remove="Assets\Sounds\Voices\opentasks.wav" />
+    <None Remove="Assets\Sounds\Voices\starttask.wav" />
+    <None Remove="Assets\Sounds\Voices\yes.wav" />
+    <None Remove="Assets\task_result_background.jpg" />
+    <None Remove="Assets\timer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app.ico" />
+    <Resource Include="Assets\Authentication\friendship.png" />
+    <Resource Include="Assets\Authentication\friendship2.png" />
+    <EmbeddedResource Include="Assets\banned_words.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Resource Include="Assets\map.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Messages\info.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Messages\question.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Messages\saved.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Messages\warning.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\continue.wav" />
+    <Resource Include="Assets\Sounds\question.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="FluentAssertions" Version="8.10.0" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
+    <PackageReference Include="MaterialDesignColors" Version="5.3.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
+    <PackageReference Include="NAudio" Version="2.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="RestSharp" Version="114.0.0" />
+    <PackageReference Include="System.Speech" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Sounds\select1.wav" />
+    <Resource Include="Assets\Sounds\select2.wav" />
+    <Resource Include="Assets\Sounds\taskend.wav" />
+    <Resource Include="Assets\Sounds\Voices\awesome!.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\back.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\continue.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\editing.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\enter_password.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\exit.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\exittask.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\finish.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\finishedtask.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\good!.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\locked.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\nicework!.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\no.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\openprofile.wav" />
+    <Resource Include="Assets\Sounds\Voices\opentasks.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\starttask.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\yes.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\task_result_background.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\timer.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

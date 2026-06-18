@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="PonyvilleSchool2._0.Views.Blocks.TextBlockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Grid>
+        <!-- 1. Фон -->
+        <Image x:Name="BgImage"
+               Source="{Binding CurrentBackgroundUrl}"
+               Stretch="Uniform"
+               Opacity="0">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1"
+                                             Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
+        <!-- 2. Персонаж справа внизу -->
+        <Image Source="{Binding DisplayedCharacterUrl}"
+       Stretch="Uniform"
+       HorizontalAlignment="Right"
+       VerticalAlignment="Bottom"
+       Width="280"
+       Margin="0,-5,30,-5">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="0"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DisplayedCharacterUrl}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DisplayedCharacterUrl}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPageChanging}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="1" To="0" Duration="0:0:0.2"
+                                                 AutoReverse="True"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                 From="0" To="-30" Duration="0:0:0.2"
+                                                 AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+
+        <!-- 3. Текстовая плашка -->
+        <Border Background="#AA000000"
+                VerticalAlignment="Bottom"
+                Padding="20">
+            <TextBlock Text="{Binding CurrentPage.text}"
+                       Foreground="White"
+                       FontSize="22"
+                       TextWrapping="Wrap"/>
+        </Border>
+    </Grid>
+</UserControl>

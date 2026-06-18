@@ -1,0 +1,34 @@
+﻿<Window x:Class="PonyvilleSchool2._0.Views.MainMenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PonyvilleSchool2._0.ViewModels"
+        xmlns:views="clr-namespace:PonyvilleSchool2._0.Views"
+        Background="#EEEEEE"
+        mc:Ignorable="d"
+        Title="Школа Понивиля"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Height="720" Width="1200">
+    <Window.DataContext>
+        <vm:MainMenuViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type vm:HubViewModel}">
+            <views:HubView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+            <views:ProfileView/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentPage}"/>
+    </Grid>
+
+</Window>

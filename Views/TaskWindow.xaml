@@ -1,0 +1,254 @@
+﻿<Window x:Class="PonyvilleSchool2._0.Views.TaskWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PonyvilleSchool2._0.Views"
+      xmlns:voices="clr-namespace:PonyvilleSchool2._0.Services.Sounds"
+      WindowStartupLocation="CenterScreen"
+      mc:Ignorable="d" 
+      MinHeight="450" MinWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Задание"
+      xmlns:vm="clr-namespace:PonyvilleSchool2._0.ViewModels"
+      xmlns:blocks="clr-namespace:PonyvilleSchool2._0.Views.Blocks"
+      xmlns:models="clr-namespace:PonyvilleSchool2._0.Models"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type models:TextBlock}">
+            <blocks:TextBlockView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:VideoBlock}">
+            <blocks:VideoBlockView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:MatchBlock}">
+            <blocks:MatchBlockView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:TestBlock}">
+            <blocks:TestBlockView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:ResultBlock}">
+            <blocks:ResultBlockView/>
+        </DataTemplate>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <!-- Шапка -->
+            <RowDefinition Height="*"/>
+            <!-- Контент -->
+            <RowDefinition Height="70"/>
+            <!-- Кнопки -->
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Border CornerRadius="0,0,15,15" Grid.Row="0" Background="{Binding HeaderColor}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Таймер -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Название -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Очки -->
+                </Grid.ColumnDefinitions>
+                <!-- Время слева -->
+                <Border Grid.Column="0"
+                        Background="White"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        CornerRadius="15"
+                        Padding="12,4"
+                        Margin="10"
+                        Width="65"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding TotalTime}"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTimerRunning}" Value="False">
+                                        <Setter Property="Foreground" Value="#AAAAAA"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Border>
+                <!-- Название задания по центру -->
+                <TextBlock Grid.Column="1"
+                           Text="{Binding TaskTitle}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,0"/>
+
+                <!-- Очки справа -->
+                <StackPanel Grid.Column="2" 
+            Orientation="Horizontal" 
+            VerticalAlignment="Center" 
+            Margin="10">
+
+                    <!-- Анимированная иконка очков -->
+                    <Image Source="{Binding CourseScore}"
+                           Stretch="Uniform" 
+                           Width="50" Height="50"
+                           Margin="0,0,6,0">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsScoreAnimating}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                            From="1.0" To="1.2" Duration="0:0:0.10"
+                            AutoReverse="True" />
+                                                    <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                            From="1.0" To="1.2" Duration="0:0:0.10"
+                            AutoReverse="True" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                        <Image.RenderTransform>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5"/>
+                        </Image.RenderTransform>
+                    </Image>
+
+                    <!-- Белый контейнер с числом очков -->
+                    <Border Background="White"
+            BorderBrush="LightGray"
+            BorderThickness="1"
+            CornerRadius="15"
+            Padding="8,4"
+            VerticalAlignment="Center">
+                        <TextBlock Text="{Binding TotalScore}"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Foreground="Black"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   MinWidth="30"
+                   TextAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Блок задания -->
+        <ContentControl Grid.Row="1"
+                    Content="{Binding CurrentBlock}"
+                    Margin="15,5,15,5"/>
+        <!-- Кнопки -->
+        <Grid Grid.Row="2" Margin="15,0,15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Кнопка "Выйти" слева -->
+            <Button Grid.Column="0"
+                    Content="Выйти"
+                    HorizontalAlignment="Left"
+                    Padding="15,8"
+                    Height="40"
+                    FontSize="20"
+                    Command="{Binding ExitCommand}"
+                    voices:VoiceAssist.Phrase="exittask"
+                    Cursor="Hand">
+                <Button.Style>
+
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+
+                        <Setter Property="Visibility"
+                    Value="Visible"/>
+
+                        <Style.Triggers>
+
+                            <DataTrigger
+                            Binding="{Binding IsTaskFinished}"
+                            Value="True">
+
+                                <Setter Property="Visibility"
+                            Value="Collapsed"/>
+
+                            </DataTrigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </Button.Style>
+            </Button>
+            
+            <!--Кнопка "Озвучить" в центре-->
+            <Button Grid.Column="1"
+                Content="🔊"
+                Width="50"
+                Height="40"
+                Margin="10,0"
+                Cursor="Hand"
+                Background="#9ed130"
+                Command="{Binding SpeakCommand}">
+                <Button.Style>
+                    <Style TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Visibility"
+                    Value="Visible"/>
+
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding IsTaskFinished}"
+                             Value="True">
+                                <Setter Property="Visibility"
+                            Value="Collapsed"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+                </Button.Style>
+            </Button>
+            
+            <!-- Кнопка "Продолжить/Закончить" Справа -->
+            <Button Grid.Column="2"
+        HorizontalAlignment="Right"
+        Cursor="Hand"
+        Command="{Binding NextBlockCommand}"
+        IsEnabled="{Binding CurrentBlock.CanContinue}"
+        voices:VoiceAssist.Phrase="{Binding ContinuePhrase}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Padding" Value="15,8"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Content" Value="Продолжить"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLastBlock}" Value="True">
+                                <Setter Property="Content" Value="Закончить"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
