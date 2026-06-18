@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <version>2.0.0</version>
+    <url>
+        https://github.com/Anton/Ponyville_School/releases/latest/download/PonyvilleSchool.zip
+    </url>
+    <mandatory>false</mandatory>
+    <changelog>
+        Первая публичная версия Ponyville School 2.0!
+    </changelog>
+</item>
