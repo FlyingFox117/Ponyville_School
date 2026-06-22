@@ -228,6 +228,20 @@ namespace PonyvilleSchool2._0.Services
                     p_user_id = userId
                 });
         } //Получение прогресса пользователя
+        public async Task<List<Achievement>?> ReceiveAchievements(int? p_user_id, int p_course_id, int p_task_id, string p_condition_1, string p_condition_2, string p_condition_3)
+        {
+            return await ExecuteRpcAndDeserialize<List<Achievement>>(
+                "receive_achievements",
+                new
+                {
+                    p_user_id,
+                    p_course_id,
+                    p_task_id,
+                    p_condition_1,
+                    p_condition_2,
+                    p_condition_3,
+                });
+        } //Получение прогресса пользователя
         public async Task<ResetTokenResult?> CreateToken(string p_login, string p_token, string p_type)
         {
             var response = await ExecuteRpc(
@@ -352,6 +366,22 @@ namespace PonyvilleSchool2._0.Services
 
             return raw["success"]?.Value<bool>() ?? false;
         } //Проверка пароля
+        public async Task<bool> DeleteAccountById(int? p_user_id)
+        {
+            var response = await ExecuteRpc(
+                "delete_user_by_id",
+                new { p_user_id });
+
+            return response.IsSuccessful;
+        } //Удаление пользователя через команду
+        public async Task<bool> UpdateUserProfile(int? p_user_id, string p_name, string p_password)
+        {
+            var response = await ExecuteRpc(
+                "update_user_profile",
+                new { p_user_id, p_name, p_password });
+
+            return response.IsSuccessful;
+        } //Обновление данных пользователя
 
         //Классы для преобразования
         public class BlockResponse

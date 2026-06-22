@@ -3,7 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Key="clr-namespace:PonyvilleSchool2._0.Services"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!-- Текстовый вопрос -->
+        <DataTemplate x:Key="QuestionTextTemplate">
+            <TextBlock Text="{Binding value}"
+                       FontSize="20"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+        </DataTemplate>
+
+        <!-- Вопрос-картинка -->
+        <DataTemplate x:Key="QuestionImageTemplate">
+            <Border Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    CornerRadius="10"
+                    ClipToBounds="True">
+                <Image Source="{Binding value}"
+                       Width="370"
+                       Height="230"
+                       Stretch="Uniform"/>
+            </Border>
+        </DataTemplate>
+
+        <!-- Текстовый ответ -->
+        <DataTemplate x:Key="AnswerTextTemplate">
+            <TextBlock Text="{Binding content.value}"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="18"/>
+        </DataTemplate>
+
+        <!-- Ответ-картинка -->
+        <DataTemplate x:Key="AnswerImageTemplate">
+            <Border CornerRadius="8"
+                    ClipToBounds="True"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <Image Source="{Binding content.value}"
+                       Width="250"
+                       Height="140"
+                       Stretch="UniformToFill"/>
+            </Border>
+        </DataTemplate>
+
+        <Key:TestContentTemplateSelector x:Key="QuestionTemplateSelector"
+                                           TextTemplate="{StaticResource QuestionTextTemplate}"
+                                           ImageTemplate="{StaticResource QuestionImageTemplate}"/>
+        <Key:TestAnswerTemplateSelector x:Key="AnswerTemplateSelector"
+                                          TextTemplate="{StaticResource AnswerTextTemplate}"
+                                          ImageTemplate="{StaticResource AnswerImageTemplate}"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,16 +82,14 @@
         <!-- 2. Центральная часть: вопрос + ответы -->
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Center"
-                    Margin="40,0">
+                    Margin="10,0">
 
-            <!-- 3. Вопрос -->
-            <TextBlock Text="{Binding CurrentQuestion.question}"
-                       FontSize="20"
-                       TextWrapping="Wrap"
-                       TextAlignment="Center"
-                       Margin="0,0,0,20"
-                       Opacity="0">
-                <TextBlock.Triggers>
+            <!-- ВОПРОС -->
+            <ContentControl Content="{Binding CurrentQuestion.question}"
+                            ContentTemplateSelector="{StaticResource QuestionTemplateSelector}"
+                            Opacity="0"
+                            HorizontalAlignment="Center">
+                <ContentControl.Triggers>
                     <EventTrigger RoutedEvent="Loaded">
                         <BeginStoryboard>
                             <Storyboard>
@@ -45,27 +99,35 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
-                </TextBlock.Triggers>
-            </TextBlock>
+                </ContentControl.Triggers>
+            </ContentControl>
 
-            <!-- 4. Ответы (вертикальный список) -->
+            <!-- ОТВЕТЫ -->
             <ItemsControl ItemsSource="{Binding CurrentQuestion.answers}"
                           HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding text}"
-                                Foreground="Black"
+                        <Button Foreground="Black"
                                 Margin="0,6"
                                 Width="360"
-                                Height="50"
+                                MinHeight="50"
                                 Padding="10"
                                 Background="{Binding Background}"
                                 IsEnabled="{Binding IsEnabled}"
                                 Command="{Binding DataContext.SelectAnswerCommand,
-                                    RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}"
-                                FontSize="18"
-                                Cursor="Hand"/>
+                                Cursor="Hand">
+
+                            <ContentControl Content="{Binding}"
+                                            ContentTemplateSelector="{StaticResource AnswerTemplateSelector}"/>
+                        </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

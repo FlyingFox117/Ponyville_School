@@ -368,12 +368,19 @@ namespace PonyvilleSchool2._0.Models
             // Перемешиваем ответы
             var rnd = new Random();
             q.answers = q.answers.OrderBy(_ => rnd.Next()).ToList();
+            foreach (var answer in q.answers)
+            {
+                answer.Background = Brushes.White;
+                answer.IsEnabled = true;
+            }
             CurrentQuestion = q;
         }
 
         private async void OnAnswerSelected(TestAnswer answer)
         {
-            if (IsLocked) return;
+            if (IsLocked) 
+                return;
+
             AppState.Instance.SoundService.PlaySound("select1");
             IsLocked = true;
 
@@ -414,27 +421,41 @@ namespace PonyvilleSchool2._0.Models
             FinishBlock();
         }
     } //Форма
+    public class TestContent
+    {
+        public string type { get; set; } = "text";  // "text" или "image"
+        public string value { get; set; } = string.Empty; // сам текст или ссылка на изображение
+    } //Тип объекта
     public class TestQuestion
     {
-        public string question { get; set; }
+        public TestContent question { get; set; }
         public List<TestAnswer> answers { get; set; }
     } //Вопрос
     public class TestAnswer : ViewModelBase
     {
-        public string text { get; set; }
+        public TestContent content { get; set; }
         public bool is_correct { get; set; }
+
         private bool _isEnabled = true;
         public bool IsEnabled
         {
             get => _isEnabled;
-            set { _isEnabled = value; OnPropertyChanged(); }
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged();
+            }
         }
 
         private Brush _background = Brushes.White;
         public Brush Background
         {
             get => _background;
-            set { _background = value; OnPropertyChanged(); }
+            set
+            {
+                _background = value;
+                OnPropertyChanged();
+            }
         }
     } //Ответ
 
@@ -448,6 +469,7 @@ namespace PonyvilleSchool2._0.Models
         public ObservableCollection<Achievement>
             Achievements
         { get; }
+        public bool HasNoAchievements => Achievements.Count == 0;
 
         public ResultBlock(
             int score,
@@ -460,7 +482,7 @@ namespace PonyvilleSchool2._0.Models
             ScoreImage = scoreImage;
             Achievements =
                 new ObservableCollection<Achievement>(
-                    achievements);
+                    achievements ?? Enumerable.Empty<Achievement>());
         }
         public override bool IsTimerActive => false;
 

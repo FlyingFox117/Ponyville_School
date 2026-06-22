@@ -31,6 +31,7 @@ namespace PonyvilleSchool2._0.ViewModels
 
         private readonly int _taskId; //ID задания
         private readonly int _courseId; //ID курса
+        private readonly int _maxScore; //Максимальный результат
 
         private bool _isScoreAnimating;
         public bool IsScoreAnimating
@@ -77,6 +78,7 @@ namespace PonyvilleSchool2._0.ViewModels
         {
             TaskTitle = task.title;
             _taskId = task.id;
+            _maxScore = task.max_score;
             _courseId = courseId;
             CourseScore = score;
             HeaderColor = (Brush)new BrushConverter()
@@ -107,10 +109,13 @@ namespace PonyvilleSchool2._0.ViewModels
         }
         private async Task LoadNextBlock() //4. Загрузка следующего блока
         {
-            if (IsLoadingBlock) return;
+            if (IsLoadingBlock) 
+                return;
+
             IsLoadingBlock = true;
             OnPropertyChanged(nameof(ContinuePhrase));
 
+            TtsService.Stop();
             try
             {
                 if (_blockQueue.Count == 0) //Если блок был последним - завершение задания
@@ -172,16 +177,30 @@ namespace PonyvilleSchool2._0.ViewModels
             int p_task_id = _taskId;
             int p_score = TotalScore;
             int p_course_id = _courseId;
+            string p_condition_1 = _totalScore < 60? "max_speed" : string.Empty;
+            string p_condition_2 = TotalScore >= _maxScore ? "max_score" : string.Empty;
+            string p_condition_3 = string.Empty;
 
             await AppState.Instance.Supabase.SubmitResult(
                     p_user_id,
                     p_task_id,
                     p_score,
                     p_course_id);
+
+            var achievements = new List<Achievement>();
+
+            achievements = await AppState.Instance.Supabase.ReceiveAchievements(
+                p_user_id,
+                p_course_id,
+                p_task_id,
+                p_condition_1,
+                p_condition_2,
+                p_condition_3
+                );
+
             AppState.Instance.SoundService.PlaySound("taskend"); //Проигрывание звука
 
-            // Потом здесь появится список достижений
-            var achievements = new List<Achievement>();
+            // Потом здесь появится список достижений     
 
             CurrentBlock = new ResultBlock(
                 TotalScore,
@@ -233,6 +252,7 @@ namespace PonyvilleSchool2._0.ViewModels
         }); //Обработчик выхода из окна задания
         public RelayCommand SpeakCommand => new(_ =>
         {
+            TtsService.Stop();
             if (CurrentBlock == null)
                 return;
             TtsService.Speak(CurrentBlock.description);

@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="PonyvilleSchool2._0.Views.UserDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PonyvilleSchool2._0.Views"
+             xmlns:voices="clr-namespace:PonyvilleSchool2._0.Services.Sounds"
+             mc:Ignorable="d">
+    <Grid>
+        <!-- Содержимое профиля -->
+
+        <StackPanel Margin="20"
+            HorizontalAlignment="Center" Grid.Row="2">
+
+            <!-- Аватар -->
+            <Ellipse Width="150"
+             Height="150"
+             Margin="0,20,0,15">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding UserAvatarUrl}"
+                        Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <!-- ID и имя -->
+            <TextBlock FontSize="22"
+               FontWeight="Bold"
+               HorizontalAlignment="Center">
+        <Run Text="ID: "/>
+        <Run Text="{Binding UserId, Mode=OneWay}"/>
+        <Run Text=" | "/>
+        <Run Text="{Binding Username, Mode=OneWay}"/>
+            </TextBlock>
+
+            <!-- Уровень -->
+            <TextBlock
+               FontSize="18"
+               FontWeight="SemiBold"
+               Foreground="MediumPurple"
+               Margin="0,5,0,15"
+               HorizontalAlignment="Center">
+            <Run Text="Уровень: "/>
+            <Run Text="{Binding UserLevel, Mode=OneWay}"/>
+            </TextBlock>
+            <Separator Margin="0,10"/>
+
+            <!-- Выполнено -->
+            <TextBlock Text="📚 Выполнено заданий"
+               FontWeight="Bold"
+               FontSize="15"
+               HorizontalAlignment="Center"/>
+            <TextBlock
+               FontSize="18"
+               Margin="0,3,0,10"
+               HorizontalAlignment="Center">
+            <Run Text="Заданий: "/>
+            <Run Text="{Binding CompletedTasksCount, Mode=OneWay}"/>
+            <Run Text=" | Попыток: "/>
+            <Run Text="{Binding TotalCompletedTasks, Mode=OneWay}"/>
+            </TextBlock>
+
+            <!-- Любимый курс -->
+            <TextBlock Text="🍎 Любимый курс"
+               FontWeight="Bold"
+               FontSize="15"
+               HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding FavoriteCourse}"
+               FontSize="18"
+               Margin="0,3,0,10"
+               HorizontalAlignment="Center"/>
+            <Separator Margin="0,10"/>
+
+            <!-- Дата регистрации -->
+            <TextBlock Text="📅 В Ponyville School с"
+               FontWeight="Bold"
+               FontSize="15"
+               HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding RegistrationDate}"
+               FontSize="16"
+               Margin="0,3,0,6"
+               HorizontalAlignment="Center"/>
+            <!-- Кнопки -->
+            <Button Content="🖌️ Редактировать"
+            Width="180"
+            Height="35"
+            Margin="0,5"
+            voices:VoiceAssist.Phrase="editing"
+            Command="{Binding EditingCommand}"/>
+            
+            <Button Content="⚙️ Настройки"
+            Width="180"
+            Height="35"
+            Margin="0,5"
+            voices:VoiceAssist.Phrase="settings"
+            Command="{Binding SettingsCommand}"/>
+
+            <Button Content="❌ Выйти"
+            Width="180"
+            Background="#dc5066"
+            BorderBrush="#dc5066"
+            Height="35"
+            Margin="0,5"
+            voices:VoiceAssist.Phrase="exit"
+            Command="{Binding ExitCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

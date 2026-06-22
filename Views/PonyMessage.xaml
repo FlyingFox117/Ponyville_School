@@ -77,7 +77,7 @@
                 <Button Content="OK" 
                         Command="{Binding OkCommand}" 
                         Visibility="{Binding OkVisibility}"
-                        voices:VoiceAssist.Phrase="yes"
+                        voices:VoiceAssist.Phrase="accept"
                         Width="90" Height="35" Margin="5,0"/>
 
                 <!-- Кнопки Да/Нет -->
@@ -96,12 +96,12 @@
                 <Button Content="ОК" 
                         Command="{Binding OkCommand}" 
                         Visibility="{Binding IsOkCancelVisible}" 
-                        voices:VoiceAssist.Phrase="yes"
+                        voices:VoiceAssist.Phrase="accept"
                         Width="90" Height="35" Margin="5,0"/>
                 <Button Content="Отмена" 
                         Command="{Binding CancelCommand}" 
                         Visibility="{Binding IsOkCancelVisible}" 
-                        voices:VoiceAssist.Phrase="no"
+                        voices:VoiceAssist.Phrase="cancel"
                         Width="90" Height="35" Margin="5,0"/>
             </StackPanel>
         </Grid>

@@ -12,9 +12,13 @@ namespace PonyvilleSchool2._0.Services.Sounds
         private static WaveOutEvent? _currentOutput;
         private static WaveFileReader? _currentReader;
         private static MemoryStream? _currentStream;
+
+        public static bool IsEnabled = true;
         public static void PlayPhrase(string phrase)
         {
             if (string.IsNullOrWhiteSpace(phrase))
+                return;
+            if (!IsEnabled)
                 return;
             try
             {

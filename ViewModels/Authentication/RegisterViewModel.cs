@@ -201,8 +201,7 @@ namespace PonyvilleSchool2._0.ViewModels.Authentication
                     return;
                 }
 
-                MessageBox.Show(
-                    "Аккаунт успешно сохранён!");
+                MessageBoxHelper.Show("Аккаунт успешно сохранен!", "Успех");
                 _startVM.ShowLogin(Login, Password);
             }
             finally

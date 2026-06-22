@@ -23,6 +23,7 @@ namespace PonyvilleSchool2._0.ViewModels
         } //Загрузка списка курсов
 
         public RelayCommand<Course> SelectCourseCommand { get; } //Выбор курса
+
         public CoursesViewModel(HubViewModel main) //Конструктор
         {
             _main = main;

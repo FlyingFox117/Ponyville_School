@@ -48,9 +48,13 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    
+
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
 
             <TextBlock Text="{Binding title}"
                    FontSize="22"
@@ -97,7 +101,7 @@
             </ItemsControl>
 
             <!-- 2. Объекты для перетаскивания -->
-            <StackPanel MinHeight="60"
+            <StackPanel Grid.Row="0" MinHeight="60"
                 Background="Transparent"
                 dd:DragDrop.IsDropTarget="True"
                 dd:DragDrop.DropHandler="{Binding}">
@@ -126,12 +130,13 @@
         </StackPanel>
         
         <!-- 3. Плашка с описанием снизу -->
-        <Border Background="#AA000000"
+        <Border Grid.Row="1" 
+                Background="#AA000000"
                 VerticalAlignment="Bottom"
                 Padding="20">
             <TextBlock Grid.Row="1"
             Text="{Binding description}"
-            Margin="10"
+            Margin="2"
             FontSize="20"
             TextWrapping="Wrap"
             Foreground="White"

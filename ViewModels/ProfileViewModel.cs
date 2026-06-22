@@ -11,24 +11,29 @@ namespace PonyvilleSchool2._0.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
-        private bool _historyLoaded;
+        private bool _historyLoaded; //Загружена ли история
         public bool NotCompleted => CompletedTasks.Count == 0;
         public bool NotAchievements => Achievements.Count == 0;
 
-        //Привязка к данным профиля
-        public string Username => AppState.Instance.CurrentUser.name;
-        public string UserId => AppState.Instance.CurrentUser.id.ToString();
-        public string UserLevel => AppState.Instance.CurrentUser.level.ToString();
-        public string RegistrationDate => AppState.Instance.CurrentUser.reg_date.ToString("yyyy-MM-dd");
-        public string UserAvatarUrl => AppState.Instance.CurrentUser.avatar;
-        public int CompletedTasksCount => AppState.Instance.CurrentUser.unique_tasks;
-        public int TotalCompletedTasks => AppState.Instance.CurrentUser.total_results;
-        public string FavoriteCourse => AppState.Instance.CurrentUser.favourite_course;
+        private object _currentView; 
+        public object CurrentView
+        {
+            get => _currentView;
+            set
+            { 
+                _currentView = value;
+                OnPropertyChanged();
+            }
+        } //Текущее окно (ProfileVM, SettingsVM, UserEditVM)
+
+        //Дочерние VM
+        public UserDataViewModel _userDataVM;
+        public SettingsViewModel _settingsVM;
+        public ProfileEditViewModel _userEditVM;
+
         private readonly Action _openHub; 
 
         public RelayCommand BackCommand { get; } //Обработчик возврата к меню
-        public RelayCommand ExitCommand { get; } //Обработчик выхода из аккаунта
-        public RelayCommand EditingCommand { get; } //Обработчик редактирования аккаунта
 
         public ProfileViewModel(Action openHub)
         {
@@ -37,27 +42,33 @@ namespace PonyvilleSchool2._0.ViewModels
             BackCommand = new RelayCommand(_ =>
             {
                 AppState.Instance.SoundService.PlaySound("select1");
+                CurrentView = _userDataVM;
                 _openHub();
             });
-            ExitCommand = new RelayCommand(_ => Logout());
-            EditingCommand = new RelayCommand(_ => ToRedactionMode());
+
             AppState.Instance.TaskCompleted += async () =>
             {
                 _historyLoaded = false;
                 await LoadHistory();
                 await LoadAchievements();
                 await AppState.Instance.RefreshProfileStats();
-                UpdateUserStats();
+                _userDataVM.UpdateUserStats();
             };
+
+            ToProfile();
             LoadHistory();
             LoadAchievements();
         } //Конструктор
-        private async Task Logout()
+
+        public async Task Logout(bool deleting)
         {
-            bool result = await PasswordChecking();
-            if (!result)
+            if (!deleting)
             {
-                return;
+                bool result = await PasswordChecking();
+                if (!result)
+                {
+                    return;
+                }
             }
             // Формируем путь к файлу сессии
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -92,18 +103,32 @@ namespace PonyvilleSchool2._0.ViewModels
                     .FirstOrDefault()?
                     .Close();
         } //Выход из аккаунта
-        private async void ToRedactionMode()
+        public async void ToRedactionMode()
         {
             bool result = await PasswordChecking();
             if (!result)
             {
                 return;
             }
+            _userEditVM ??= new ProfileEditViewModel(this);
+            AppState.Instance.SoundService.PlaySound("select1");
+            CurrentView = _userEditVM;
         } //В режим редактирования
+        public void ToSettingsMode()
+        {
+            AppState.Instance.SoundService.PlaySound("select1");
+            _settingsVM ??= new SettingsViewModel(this);
+            CurrentView = _settingsVM;
+        } //Переход в настройки
+        public void ToProfile()
+        {
+            _userDataVM ??= new UserDataViewModel(this);
+            CurrentView = _userDataVM;
+        } //Переход в профиль
         private async Task<bool> PasswordChecking()
         {
            var input = MessageBoxHelper.ShowInput(
-           "Введите пароль для выхода:",
+           "Введите пароль для подтверждения действия:",
            "Нужен пароль!",
            "",
            MessageBoxViewModel.Images.Question);
@@ -158,13 +183,7 @@ namespace PonyvilleSchool2._0.ViewModels
 
             OnPropertyChanged(nameof(NotAchievements));
         } //Загрузка полученных достижений
-        private void UpdateUserStats()
-        {
-            OnPropertyChanged(nameof(UserLevel));
-            OnPropertyChanged(nameof(CompletedTasksCount));
-            OnPropertyChanged(nameof(FavoriteCourse));
-            OnPropertyChanged(nameof(TotalCompletedTasks));
-        } //Обновление данных пользователя
+       
         public ObservableCollection<Achievement> Achievements { get; }
             = new(); //Список достижений
         public ObservableCollection<CompletedTaskInfo> CompletedTasks { get; }

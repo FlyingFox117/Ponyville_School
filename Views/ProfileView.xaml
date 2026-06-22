@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PonyvilleSchool2._0.Views"
              xmlns:voices="clr-namespace:PonyvilleSchool2._0.Services.Sounds"
+             xmlns:vm="clr-namespace:PonyvilleSchool2._0.ViewModels"
+             xmlns:views="clr-namespace:PonyvilleSchool2._0.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <UserControl.Resources>
         <Style TargetType="ScrollBar">
             <Setter Property="Width" Value="6"/>
@@ -42,8 +44,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <DataTemplate DataType="{x:Type vm:UserDataViewModel}">
+            <views:UserDataView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <views:SettingsView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:ProfileEditViewModel}">
+            <views:ProfileEditView/>
+        </DataTemplate>
+
     </UserControl.Resources>
-    
+
     <Grid Margin="10">
 
         <Grid.ColumnDefinitions>
@@ -93,7 +108,9 @@
                                     <Border.ToolTip>
 
                                         <StackPanel MaxWidth="250">
-
+                                            <TextBlock Text="{Binding title}"
+                                               TextWrapping="Wrap"
+                                               Margin="0,0,0,10"/>
                                             <TextBlock Text="{Binding description}"
                                                TextWrapping="Wrap"
                                                Margin="0,0,0,10"/>
@@ -186,105 +203,19 @@
         Background="#c3e8f4">
 
             <Grid>
-                <!-- Содержимое профиля -->
 
                 <!-- Кнопка "Назад "-->
-                <Button Content="← Назад"
-                Width="90"
-                Height="35"
-                Margin="10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Command="{Binding BackCommand}"
-                voices:VoiceAssist.Phrase="back"
-                Grid.Row="1"/>
-
-                <StackPanel Margin="20"
-                        HorizontalAlignment="Center" Grid.Row="2">
-
-                    <!-- Аватар -->
-                    <Ellipse Width="150"
-                         Height="150"
-                         Margin="0,20,0,15">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding UserAvatarUrl}"
-                                    Stretch="UniformToFill"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-
-                    <!-- ID и имя -->
-                    <TextBlock FontSize="22"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center">
-                    <Run Text="ID: "/>
-                    <Run Text="{Binding UserId, Mode=OneWay}"/>
-                    <Run Text=" | "/>
-                    <Run Text="{Binding Username, Mode=OneWay}"/>
-                    </TextBlock>
-
-                    <!-- Уровень -->
-                    <TextBlock
-                           FontSize="18"
-                           FontWeight="SemiBold"
-                           Foreground="MediumPurple"
-                           Margin="0,5,0,15"
-                           HorizontalAlignment="Center">
-                        <Run Text="Уровень: "/>
-                        <Run Text="{Binding UserLevel, Mode=OneWay}"/>
-                    </TextBlock>
-                    <Separator Margin="0,10"/>
-
-                    <!-- Выполнено -->
-                    <TextBlock Text="📚 Выполнено заданий"
-                           FontWeight="Bold"
-                           FontSize="15"
-                           HorizontalAlignment="Center"/>
-                    <TextBlock
-                           FontSize="18"
-                           Margin="0,3,0,10"
-                           HorizontalAlignment="Center">
-                        <Run Text="Заданий: "/>
-                        <Run Text="{Binding CompletedTasksCount, Mode=OneWay}"/>
-                        <Run Text=" | Попыток: "/>
-                        <Run Text="{Binding TotalCompletedTasks, Mode=OneWay}"/>
-                    </TextBlock>
-
-                    <!-- Любимый курс -->
-                    <TextBlock Text="🍎 Любимый курс"
-                           FontWeight="Bold"
-                           FontSize="15"
-                           HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding FavoriteCourse}"
-                           FontSize="18"
-                           Margin="0,3,0,10"
-                           HorizontalAlignment="Center"/>
-                    <Separator Margin="0,10"/>
-
-                    <!-- Дата регистрации -->
-                    <TextBlock Text="📅 В Ponyville School с"
-                           FontWeight="Bold"
-                           FontSize="15"
-                           HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding RegistrationDate}"
-                           FontSize="16"
-                           Margin="0,3,0,20"
-                           HorizontalAlignment="Center"/>
-                    <!-- Кнопки -->
-                    <Button Content="🚪 Выйти"
-                        Width="180"
+                <Button Content="← Назад" Grid.Column="0"
+                        Width="90"
                         Height="35"
-                        Margin="0,5"
-                        Command="{Binding ExitCommand}"
-                        voices:VoiceAssist.Phrase="exit"/>
-
-                    <Button Content="🚪 Редактировать"
-                        Width="180"
-                        Height="35"
-                        Margin="0,5"
-                        Command="{Binding EditingCommand}"
-                        voices:VoiceAssist.Phrase="editing"/>
-                </StackPanel>
-
+                        Margin="10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        voices:VoiceAssist.Phrase="back"
+                        Command="{Binding BackCommand}"
+                        Grid.Row="1"/>
+                <!-- Выбранное меню -->
+                <ContentControl Grid.Column="1" Content="{Binding CurrentView}" Margin="5"/>
             </Grid>
 
         </Border>

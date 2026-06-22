@@ -1,4 +1,5 @@
 ﻿using PonyvilleSchool2._0.Services;
+using PonyvilleSchool2._0.Services.Sounds;
 using PonyvilleSchool2._0.Views;
 using PonyvilleSchool2._0.Views.Authentication;
 using System.IO;
@@ -12,6 +13,8 @@ namespace PonyvilleSchool2._0
         {
             base.OnStartup(e);
             Logger.Initialize();
+            var settings = SettingsService.Load();
+            VoicePlayerService.IsEnabled = settings.SoundEnabled;
 
             var result = await TryAutoLogin(); //Проверка входа
             if (!result)

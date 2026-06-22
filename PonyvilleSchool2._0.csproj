@@ -8,8 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <AssemblyVersion>2.2.0.0</AssemblyVersion>
+    <FileVersion>2.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,11 +34,14 @@
     <None Remove="Assets\Sounds\select1.wav" />
     <None Remove="Assets\Sounds\select2.wav" />
     <None Remove="Assets\Sounds\taskend.wav" />
+    <None Remove="Assets\Sounds\Voices\accept.wav" />
     <None Remove="Assets\Sounds\Voices\awesome!.wav" />
     <None Remove="Assets\Sounds\Voices\back.wav" />
+    <None Remove="Assets\Sounds\Voices\cancel.wav" />
     <None Remove="Assets\Sounds\Voices\editing.wav" />
     <None Remove="Assets\Sounds\Voices\enter_password.wav" />
     <None Remove="Assets\Sounds\Voices\exit.wav" />
+    <None Remove="Assets\Sounds\Voices\exitconfirm.wav" />
     <None Remove="Assets\Sounds\Voices\exittask.wav" />
     <None Remove="Assets\Sounds\Voices\finish.wav" />
     <None Remove="Assets\Sounds\Voices\finishedtask.wav" />
@@ -48,7 +51,9 @@
     <None Remove="Assets\Sounds\Voices\no.wav" />
     <None Remove="Assets\Sounds\Voices\openprofile.wav" />
     <None Remove="Assets\Sounds\Voices\opentasks.wav" />
+    <None Remove="Assets\Sounds\Voices\settings.wav" />
     <None Remove="Assets\Sounds\Voices\starttask.wav" />
+    <None Remove="Assets\Sounds\Voices\taskout.wav" />
     <None Remove="Assets\Sounds\Voices\yes.wav" />
     <None Remove="Assets\task_result_background.jpg" />
     <None Remove="Assets\timer.png" />
@@ -104,10 +109,16 @@
     <Resource Include="Assets\Sounds\select1.wav" />
     <Resource Include="Assets\Sounds\select2.wav" />
     <Resource Include="Assets\Sounds\taskend.wav" />
+    <Resource Include="Assets\Sounds\Voices\accept.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Sounds\Voices\awesome!.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Sounds\Voices\back.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\cancel.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Sounds\Voices\continue.wav">
@@ -120,6 +131,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Sounds\Voices\exit.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\exitconfirm.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Sounds\Voices\exittask.wav">
@@ -147,7 +161,13 @@
     <Resource Include="Assets\Sounds\Voices\opentasks.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Sounds\Voices\settings.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Sounds\Voices\starttask.wav">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Sounds\Voices\taskout.wav">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Sounds\Voices\yes.wav">

@@ -106,7 +106,7 @@ namespace PonyvilleSchool2._0.ViewModels.Authentication
         private void CheckUpdates() //Проверка обновлений в программе
         {
             AutoUpdater.Start(
-                "https://raw.githubusercontent.com/FlyingFox117/Ponyville_School/main/update.xml");
+                "https://raw.githubusercontent.com/FlyingFox117/Ponyville_School/master/update.xml");
         }
     }
 }

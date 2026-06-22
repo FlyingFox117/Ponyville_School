@@ -1,5 +1,6 @@
 ﻿using PonyvilleSchool2._0.Models;
 using PonyvilleSchool2._0.Services;
+using PonyvilleSchool2._0.Services.Sounds;
 using PonyvilleSchool2._0.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace PonyvilleSchool2._0.Views
             if (_forceClose)
                 return;
             AppState.Instance.SoundService.PlaySound("question");
+            VoicePlayerService.PlayPhrase("exitconfirm");
             var result = MessageBoxHelper.Show(
                 "Ты точно хочешь закончить прохождение задания сейчас?",
                 "Уже уходишь?",

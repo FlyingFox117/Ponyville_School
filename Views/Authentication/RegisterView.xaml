@@ -20,7 +20,7 @@
         <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
 
         <TextBlock Text="Имя"/>
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}" MaxLength="50"/>
 
         <TextBlock Text="Пароль"/>
         <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsVerify}"/>

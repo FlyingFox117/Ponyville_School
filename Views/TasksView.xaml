@@ -43,6 +43,7 @@
                                     <RowDefinition Height="150"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
                                 <!-- Заголовок -->
@@ -171,13 +172,27 @@
 
                                 <!-- Описание -->
                                 <TextBlock Grid.Row="2"
-                                       Margin="10"
+                                       Margin="5"
                                        Text="{Binding description}"
                                        TextWrapping="Wrap"
                                        MaxHeight="100"/>
+                                
+                                <!-- Набранные очки -->
+                                <TextBlock Grid.Row="3"
+                                       Margin="5"
+                                       TextWrapping="Wrap"
+                                       FontSize="15"
+                                       MaxHeight="100"
+                                       HorizontalAlignment="Center">
+
+                                    <Run Text="Баллы: "/>
+                                    <Run Text="{Binding result, Mode=OneWay}"/>
+                                    <Run Text="/"/>
+                                    <Run Text="{Binding max_score, Mode=OneWay}"/>
+                                </TextBlock>
 
                                 <!-- Статус -->
-                                <Border Grid.Row="3"
+                                <Border Grid.Row="4"
                                     Margin="10"
                                     Padding="8,5"
                                     CornerRadius="10"

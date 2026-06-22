@@ -1,10 +1,5 @@
 ﻿using PonyvilleSchool2._0.ViewModels;
 using PonyvilleSchool2._0.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using static PonyvilleSchool2._0.ViewModels.MessageBoxViewModel;
 
@@ -36,7 +31,8 @@ namespace PonyvilleSchool2._0.Services
                 (r, text) =>
                 {
                     result = r;
-                    window.DialogResult = (r == MessageBoxViewModel.Result.OK || r == MessageBoxViewModel.Result.Yes);
+                    window.DialogResult = (r == MessageBoxViewModel.Result.OK 
+                    || r == MessageBoxViewModel.Result.Yes);
                     window.Close();
                 });
             window.DataContext = vm;

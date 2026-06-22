@@ -7,8 +7,8 @@
       xmlns:voices="clr-namespace:PonyvilleSchool2._0.Services.Sounds"
       WindowStartupLocation="CenterScreen"
       mc:Ignorable="d" 
-      MinHeight="450" MinWidth="800"
-      d:DesignHeight="450" d:DesignWidth="800"
+      MinHeight="620" MinWidth="700"
+      d:DesignHeight="620" d:DesignWidth="900"
       Title="Задание"
       xmlns:vm="clr-namespace:PonyvilleSchool2._0.ViewModels"
       xmlns:blocks="clr-namespace:PonyvilleSchool2._0.Views.Blocks"
@@ -207,6 +207,7 @@
                 Margin="10,0"
                 Cursor="Hand"
                 Background="#9ed130"
+                BorderBrush="#9ed130"
                 Command="{Binding SpeakCommand}">
                 <Button.Style>
                     <Style TargetType="Button"

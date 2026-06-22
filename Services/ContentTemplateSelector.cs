@@ -1,15 +1,10 @@
 ﻿using PonyvilleSchool2._0.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace PonyvilleSchool2._0.Services
 {
-    //Инструмент для преобразования объектов - карточек на MatchBlock
+    //Инструмент для преобразования объектов
     public class ContentTemplateSelector : DataTemplateSelector
     {
         public DataTemplate ImageTemplate { get; set; }
@@ -43,6 +38,46 @@ namespace PonyvilleSchool2._0.Services
                     _ => TextTemplate
                 };
             }
+            return base.SelectTemplate(item, container);
+        }
+    }
+
+    public class TestContentTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate TextTemplate { get; set; }
+        public DataTemplate ImageTemplate { get; set; }
+
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            if (item is TestContent content)
+            {
+                return content.type switch
+                {
+                    "image" => ImageTemplate,
+                    _ => TextTemplate
+                };
+            }
+
+            return base.SelectTemplate(item, container);
+        }
+    }
+
+    public class TestAnswerTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate TextTemplate { get; set; }
+        public DataTemplate ImageTemplate { get; set; }
+
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            if (item is TestAnswer answer)
+            {
+                return answer.content?.type switch
+                {
+                    "image" => ImageTemplate,
+                    _ => TextTemplate
+                };
+            }
+
             return base.SelectTemplate(item, container);
         }
     }

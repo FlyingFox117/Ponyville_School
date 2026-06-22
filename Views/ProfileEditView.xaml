@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="PonyvilleSchool2._0.Views.ProfileEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PonyvilleSchool2._0.Views"
+             xmlns:voices="clr-namespace:PonyvilleSchool2._0.Services.Sounds"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="✏️ Редактирование профиля" FontSize="22" TextAlignment="Center" FontWeight="Bold" Margin="0,50,0,20"/>
+
+            <!-- Изменение имени -->
+            <TextBlock Text="Изменить имя" FontSize="16" Margin="0,5,0,5"/>
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" 
+                     FontSize="16" Padding="8" Margin="0,0,0,15"
+                     Width="300" HorizontalAlignment="Center" MaxLength="50" />
+
+            <!-- Изменение пароля -->
+            <TextBlock Text="Изменить пароль" FontSize="16" Margin="0,5,0,5"/>
+            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="16" Padding="8" Margin="0,0,0,8"
+                         Width="300" HorizontalAlignment="Center"/>
+            <TextBlock Text="Повторите новый пароль" FontSize="16" Margin="0,5,0,5"/>
+            <TextBox Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="16" Padding="8" Margin="0,0,0,20"
+                         Width="300" HorizontalAlignment="Center"/>
+
+            <!-- Кнопки -->
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="💾 Сохранить" Command="{Binding SaveCommand}" 
+                        Width="140" Height="35" Margin="3"/>
+                <Button Content="← Назад" Command="{Binding BackCommand}" 
+                        Width="140" Height="35" Margin="3"/>
+                <Button Content="🗑 Удалить аккаунт" Command="{Binding DeleteAccountCommand}" 
+                        Width="160" Height="35" Background="#dc5066" BorderBrush="#dc5066" Foreground="White"
+                        Margin="10"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

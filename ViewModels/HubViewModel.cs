@@ -1,7 +1,6 @@
 ﻿using PonyvilleSchool2._0.Core;
 using PonyvilleSchool2._0.Models;
 using PonyvilleSchool2._0.Services;
-using System.DirectoryServices.ActiveDirectory;
 
 namespace PonyvilleSchool2._0.ViewModels
 {

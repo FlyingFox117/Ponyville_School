@@ -83,7 +83,7 @@ namespace PonyvilleSchool2._0.ViewModels
             // Пользователю сегодня задания недоступны
             if (AppState.Instance.CurrentUser.available == 0)
             {
-                VoicePlayerService.PlayPhrase("runout");
+                VoicePlayerService.PlayPhrase("taskout");
                 MessageBoxHelper.Show("На сегодня задания кончились. Приходи завтра!",
                     "Ой!",
                     MessageBoxViewModel.Images.Error,
